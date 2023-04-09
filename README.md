@@ -1,10 +1,12 @@
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+
 # Abnormal Accounts Recognition
 
 ## 文件说明
 
-datasets // 数据集（训练集、测试集）
-feature engineering // 特征工程
-models // 风险模型
+datasets // 数据集（训练集、测试集）  
+feature engineering // 特征工程  
+models // 风险模型  
 references // 参考文献
 
 ## 测试环境
@@ -236,10 +238,10 @@ $$
 
 ## 参考文献
 
-[1] Bernhard H Schölkopf, Robert C Williamson, Alexander Smola, John C Shawe-Taylor, John C Platt. Support vector method for novelty detection[C]. NIPS'99: Proceedings of the 12th International Conference on Neural Information Processing Systems, 1999.
-[2] David M.J. Tax, Robert P.W. Duin. Support Vector Data Description[J]. Machine Learning, 2004, 54: 45-66.
-[3] Markus M. Breunig, Hans-Peter Kriegel, Raymond Tak Yan Ng, Jörg Sander. LOF: identifying density-based local outliers[C]. Proc. ACM SIGMOD 2000 Int. Conf. On Management of Data, 2000.
-[4] Fei Tony Liu, Kai Ming Ting, Zhi-Hua Zhou. Isolation Forest[C]. IEEE International Conference on Data Mining, 2008.
-[5] 朱佳俊, 陈功, 施勇, 薛质. 基于用户画像的异常行为检测[J]. 通信技术, 2017, 50(10): 2310-2315.
-[6] 崔景洋, 陈振国, 田立勤, 张光华. 基于机器学习的用户与实体行为分析技术综述[J/OL]. 计算机工程. https://doi.org/10.19678/j.issn.1000-3428.0062623.
+[1] Bernhard H Schölkopf, Robert C Williamson, Alexander Smola, John C Shawe-Taylor, John C Platt. Support vector method for novelty detection[C]. NIPS'99: Proceedings of the 12th International Conference on Neural Information Processing Systems, 1999.  
+[2] David M.J. Tax, Robert P.W. Duin. Support Vector Data Description[J]. Machine Learning, 2004, 54: 45-66.  
+[3] Markus M. Breunig, Hans-Peter Kriegel, Raymond Tak Yan Ng, Jörg Sander. LOF: identifying density-based local outliers[C]. Proc. ACM SIGMOD 2000 Int. Conf. On Management of Data, 2000.  
+[4] Fei Tony Liu, Kai Ming Ting, Zhi-Hua Zhou. Isolation Forest[C]. IEEE International Conference on Data Mining, 2008.  
+[5] 朱佳俊, 陈功, 施勇, 薛质. 基于用户画像的异常行为检测[J]. 通信技术, 2017, 50(10): 2310-2315.  
+[6] 崔景洋, 陈振国, 田立勤, 张光华. 基于机器学习的用户与实体行为分析技术综述[J/OL]. 计算机工程. https://doi.org/10.19678/j.issn.1000-3428.0062623.  
 [7] 爱丽丝·郑, 阿曼达·卡萨丽. 精通特征工程[M]. 北京: 人民邮电出版社, 2019.
