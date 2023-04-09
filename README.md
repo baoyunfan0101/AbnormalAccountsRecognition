@@ -1,5 +1,9 @@
 # Abnormal Accounts Recognition
 
+## 关联项目
+
+https://github.com/baoyunfan0101/CertificationRiskPrediction
+
 ## 文件说明
 
 datasets // 数据集（训练集、测试集）  
