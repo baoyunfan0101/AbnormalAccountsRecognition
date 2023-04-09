@@ -163,7 +163,11 @@ $$
 d = \frac{\left| {wx + b} \right|}{\left\| w \right\|}
 $$
 
-其中$\left\| w \right\|$选取w的2-范数，即$\left\| w \right\| = \sqrt{\sum\limits_{i}w_{i}^{2}}$。又由支持向量的定义，有
+其中
+$\left\| w \right\|$
+选取w的2-范数，即
+$\left\| w \right\| = \sqrt{\sum\limits_{i}w_{i}^{2}}$
+。又由支持向量的定义，有
 
 $$
 \frac{\left| {wx + b} \right|}{\left\| w \right\|} \geq \frac{\left| {wz_{0} + b} \right|}{\left\| w \right\|} = d_{0}
@@ -175,13 +179,17 @@ $$
 \left| \frac{wx + b}{\left\| w \right\| d_{0}} \right| \geq 1
 $$
 
-为便于进一步推导与优化，由$\left\| w \right\| d_{0}$为正数，可令其为1，则有
+为便于进一步推导与优化，由
+$\left\| w \right\| d_{0}$
+为正数，可令其为1，则有
 
 $$
 \left| {wx + b} \right| \geq 1
 $$
 
-又因为要想使$d_{0}$尽可能大，应使$\frac{1}{\left\| w \right\|}$尽可能大，由此得出支持向量机模型
+又因为要想使$d_{0}$尽可能大，应使
+$\frac{1}{\left\| w \right\|}$
+尽可能大，由此得出支持向量机模型
 
 $$
 \max\limits_{}\frac{1}{\left\| w \right\|} \quad s.t.\left| {wx + b} \right| \geq 1
@@ -199,7 +207,9 @@ $$
 {\hat{y}}_{i} = {\sum\limits_{k = 1}^{K}{f_{k}\left( x_{i} \right)}}, \quad f \in F
 $$
 
-其中$f_{k}$为第k棵回归树模型；F对应回归树组成的函数空间。其目标函数定义为
+其中
+$f_{k}$
+为第k棵回归树模型；F对应回归树组成的函数空间。其目标函数定义为
 
 $$
 Obj(\Theta) = {\sum\limits_{i = 1}^{N}{l\left( {y_{i},{\hat{y}}_{i}} \right)}} + {\sum\limits_{j = 1}^{t}{\Omega\left( f_{j} \right)}}, \quad f_{j} \in F
@@ -244,9 +254,21 @@ $$
 {\min\limits_{w,\zeta_{i},\rho}{\frac{1}{2}\left\| w \right\|^{2}}} + \frac{1}{\nu n}{\sum\limits_{i = 1}^{n}\zeta_{i}} - \rho \quad s.t.\left( {w^{T}\phi\left( x_{i} \right)} \right) > \rho - \zeta_{i}, \quad i = 1,..,n
 $$
 
-其中$\zeta_{i}$为松弛变量且满足$\zeta_{i} > 0$，ν可以调整训练集中可信样本的比例。
+其中
+$\zeta_{i}$
+为松弛变量且满足
+$\zeta_{i} > 0$
+，ν可以调整训练集中可信样本的比例。
 
-在参考文献[2]中提出的One Class SVM方法（可简称为SVDD）实质是在特征空间中获得数据周围的球形边界，这个超球体的体积是最小化的，从而最小化异常点的影响。产生的超球体中心为a、半径为R，体积$R^{2}$被最小化，中心a是支持向量的线性组合。与经典的SVM方法相似，要求每个数据点x_i到中心的距离严格小于R，但同时构造一个惩罚系数为C的松弛变量$\zeta_{i}$满足$\zeta_{i} > 0$，优化问题为
+在参考文献[2]中提出的One Class SVM方法（可简称为SVDD）实质是在特征空间中获得数据周围的球形边界，这个超球体的体积是最小化的，从而最小化异常点的影响。产生的超球体中心为a、半径为R，体积
+$R^{2}$
+被最小化，中心a是支持向量的线性组合。与经典的SVM方法相似，要求每个数据点
+$x_{i}$
+到中心的距离严格小于R，但同时构造一个惩罚系数为C的松弛变量
+$\zeta_{i}$
+满足
+$\zeta_{i} > 0$
+，优化问题为
 
 $$
 {\min\limits_{R,a}R^{2}} + C{\sum\limits_{i = 1}^{n}\zeta_{i}} \quad s.t.\left\| {x_{i} - a} \right\|^{2} \leq R^{2} + \zeta_{i}, \quad i = 1,..,n
