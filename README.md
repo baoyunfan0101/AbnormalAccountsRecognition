@@ -14,13 +14,6 @@ Python3.8 & MATLAB R2018a
 ## 任务描述
 
 从数据集给出的基础信息、操作信息和交易信息中，提取出有效特征，建立账户特征模型，即账户特征与账户风险“label”之间的关系模型，从而实现风险账户识别。
-$$
-\begin{cases}
-a_1x+b_1y+c_1z=d_1\\
-a_2x+b_2y+c_2z=d_2\\
-a_3x+b_3y+c_3z=d_3\\
-\end{cases}
-$$
 
 ## 特征工程
 
@@ -33,11 +26,10 @@ $$
 由于不同特征数据的量纲不一致，存在超出取值范围的离群数据，因此需进行数据标准化。这里基于原始数据的均值和标准差进行z-score标准化，以满足下列模型训练的需要，公式为
 
 $$
-{X'}\_{i} = \frac{X\_{i} - {\overset{-}{X}}\_{i}}{S}
-
+{X'}\_{i} = \frac{X_{i} - {\overset{-}{X}}\_{i}}{S}
 $$
 
-其中${X'}\_{i}$为数据标准化后的特征；$X\_{i}$原数据的特征；${\overset{-}{X}}\_{i}$为原数据特征的均值；S为原数据特征的标准差，其计算公式为$\sqrt{\frac{\sum\limits\_{i = 1}^{n}\left( {x\_{i} - \overset{-}{x}} \right)^{2}}{n - 1}}$。由于后续可能还会进行特征衍生，实际操作中数据标准化可以在特征工程结束后进行。
+其中${X'}_{i}$为数据标准化后的特征；$X_{i}$原数据的特征；${\overset{-}{X}}_{i}$为原数据特征的均值；S为原数据特征的标准差，其计算公式为$\sqrt{\frac{\sum\limits_{i = 1}^{n}\left( {x_{i} - \overset{-}{x}} \right)^{2}}{n - 1}}$。由于后续可能还会进行特征衍生，实际操作中数据标准化可以在特征工程结束后进行。
 
 *测试集和训练集数据预处理的Python脚本分别在“preprocessing_train.py”和“preprocessing_test.py”中。*
 
@@ -61,7 +53,6 @@ RFM分析方法中的“RFM”分别指的是Recency（距离最近一次交易�
 
 $$
 {WOE}_{i} = ln\left( \frac{{py}_{i}}{{pn}_{i}} \right) = ln\left( \frac{\frac{\# y_{i}}{\# y_{T}}}{\frac{\# n_{i}}{\# n_{T}}} \right)
-
 $$
 
 其中${WOE}_{i}$为第i组的WOE；${py}_{i}$为第i组响应客户（即该问题中的风险账户）占所有样本中响应客户的比例；${pn}_{i}$为第i组未响应客户占所有样本中未响应客户的比例；$\# y_{i}$为第i组响应客户的数量；$\# y_{T}$为第i组未响应客户的数量；$\# n_{i}$为所有样本中响应客户的数量；$\# n_{T}$为所有样本中未响应客户的数量。
@@ -70,14 +61,12 @@ $$
 
 $$
 {IV}_{i} = \left( {py}_{i} - {pn}_{i} \right) \times {WOE}_{i} = \left( \frac{\# y_{i}}{\# y_{T}} - \frac{\# n_{i}}{\# n_{T}} \right) \times ln\left( \frac{\frac{\# y_{i}}{\# y_{T}}}{\frac{\# n_{i}}{\# n_{T}}} \right)
-
 $$
 
 其中${IV}_{i}$为第i组的IV。某个特征IV的计算公式为
 
 $$
 IV = {\sum\limits_{i = 1}^{n}{IV}_{i}}
-
 $$
 
 其中n为组数。
@@ -110,21 +99,18 @@ $$
 
 $$
 Sigmoid(p) = ln\left( \frac{p}{1 - p} \right)
-
 $$
 
 令$Sigmoid(p) = z$，则有
 
 $$
 p = \frac{1}{1 + e^{- z}}
-
 $$
 
 设各特征的向量为X，系数向量为β，代入上式的z中，即得到回归模型的表达式
 
 $$
 h(x) = \frac{1}{1 + e^{- X\beta^{T}}}
-
 $$
 
 其中，h(x)的取值范围为[0,1]，可以表示题目所需的账户风险“label”的预测值。又h(x)≥0.5时令y=1，h(x)<0.5时令y=0，即可实现二分类。
@@ -139,35 +125,30 @@ $$
 
 $$
 d = \frac{\left| {wx + b} \right|}{\left\| w \right\|}
-
 $$
 
 其中$\left\| w \right\|$选取w的2-范数，即$\left\| w \right\| = \sqrt{\sum\limits_{i}w_{i}^{2}}$。又由支持向量的定义，有
 
 $$
 \frac{\left| {wx + b} \right|}{\left\| w \right\|} \geq \frac{\left| {wz_{0} + b} \right|}{\left\| w \right\|} = d_{0}
-
 $$
 
 化简可得
 
 $$
 \left| \frac{wx + b}{\left\| w \right\| d_{0}} \right| \geq 1
-
 $$
 
 为便于进一步推导与优化，由$\left\| w \right\| d_{0}$为正数，可令其为1，则有
 
 $$
 \left| {wx + b} \right| \geq 1
-
 $$
 
 又因为要想使$d_{0}$尽可能大，应使$\frac{1}{\left\| w \right\|}$尽可能大，由此得出支持向量机模型
 
 $$
 \max\limits_{}\frac{1}{\left\| w \right\|} \quad s.t.\left| {wx + b} \right| \geq 1
-
 $$
 
 *支持向量机模型相关的Python脚本在“SVM.py”中。*
@@ -180,14 +161,12 @@ XGBoost采用前向分布算法，学习包含K棵树的加法模型
 
 $$
 {\hat{y}}_{i} = {\sum\limits_{k = 1}^{K}{f_{k}\left( x_{i} \right)}}, \quad f \in F
-
 $$
 
 其中$f_{k}$为第k棵回归树模型；F对应回归树组成的函数空间。其目标函数定义为
 
 $$
 Obj(\Theta) = {\sum\limits_{i = 1}^{N}{l\left( {y_{i},{\hat{y}}_{i}} \right)}} + {\sum\limits_{j = 1}^{t}{\Omega\left( f_{j} \right)}}, \quad f_{j} \in F
-
 $$
 
 其中l为损失函数；Ω为正则化函数，与模型的复杂程度相关。正则项的加入能够有效防止模型过度拟合。
@@ -227,7 +206,6 @@ One Class SVM模型的训练集中应只包含一类行为。One Class SVM的定
 
 $$
 {\min\limits_{w,\zeta_{i},\rho}{\frac{1}{2}\left\| w \right\|^{2}}} + \frac{1}{\nu n}{\sum\limits_{i = 1}^{n}\zeta_{i}} - \rho \quad s.t.\left( {w^{T}\phi\left( x_{i} \right)} \right) > \rho - \zeta_{i}, \quad i = 1,..,n
-
 $$
 
 其中$\zeta_{i}$为松弛变量且满足$\zeta_{i} > 0$，ν可以调整训练集中可信样本的比例。
@@ -236,7 +214,6 @@ $$
 
 $$
 {\min\limits_{R,a}R^{2}} + C{\sum\limits_{i = 1}^{n}\zeta_{i}} \quad s.t.\left\| {x_{i} - a} \right\|^{2} \leq R^{2} + \zeta_{i}, \quad i = 1,..,n
-
 $$
 
 *一类支持向量机模型相关的Python脚本在“OneClassSVM.py”中。*
