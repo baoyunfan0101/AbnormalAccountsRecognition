@@ -52,18 +52,18 @@ RFM分析方法中的“RFM”分别指的是Recency（距离最近一次交易�
 **WOE**（Weight of Evidence，证据权重），是对原始自变量的一种编码形式，在对某个评价指标进行分组、离散化处理后，由下面公式计算
 
 $$
-{WOE}\_{i} = ln\left( \frac{{py}\_{i}}{{pn}\_{i}} \right) = ln\left( \frac{\frac{\# y_{i}}{\# y_{T}}}{\frac{\# n_{i}}{\# n_{T}}} \right)
+{WOE}\_{i} = ln\left( \frac{{py}\_{i}}{{pn}\_{i}} \right) = ln\left( \frac{\frac{y_{i}}{y_{T}}}{\frac{n_{i}}{n_{T}}} \right)
 $$
 
-其中${WOE}\_{i}$为第i组的WOE；${py}\_{i}$为第i组响应客户（即该问题中的风险账户）占所有样本中响应客户的比例；${pn}\_{i}$为第i组未响应客户占所有样本中未响应客户的比例；$\# y_{i}$为第i组响应客户的数量；$\# y_{T}$为第i组未响应客户的数量；$\# n_{i}$为所有样本中响应客户的数量；$\# n_{T}$为所有样本中未响应客户的数量。
+其中${WOE}\_{i}$为第i组的WOE；${py}\_{i}$为第i组响应客户（即该问题中的风险账户）占所有样本中响应客户的比例；${pn}\_{i}$为第i组未响应客户占所有样本中未响应客户的比例；$y_{i}$为第i组响应客户的数量；$y_{T}$为第i组未响应客户的数量；$n_{i}$为所有样本中响应客户的数量；$n_{T}$为所有样本中未响应客户的数量。
 
 **IV**（Information Value，信息价值），综合考虑了每组样本的WOE以及其在总体样本中所占的比例，可以看作WOE的加权和，在该问题中能够反映某一特征对账户风险的贡献率。某一组IV的具体计算公式为
 
 $$
-{IV}\_{i} = \left( {py}\_{i} - {pn}\_{i} \right) \times {WOE}\_{i} = \left( \frac{\# y_{i}}{\# y_{T}} - \frac{\# n_{i}}{\# n_{T}} \right) \times ln\left( \frac{\frac{\# y_{i}}{\# y_{T}}}{\frac{\# n_{i}}{\# n_{T}}} \right)
+{IV}\_{i} = \left( {py}\_{i} - {pn}\_{i} \right) \times {WOE}\_{i} = \left( \frac{y_{i}}{y_{T}} - \frac{n_{i}}{n_{T}} \right) \times ln\left( \frac{\frac{y_{i}}{y_{T}}}{\frac{n_{i}}{n_{T}}} \right)
 $$
 
-其中${IV}_{i}$为第i组的IV。某个特征IV的计算公式为
+其中${IV}\_{i}$为第i组的IV。某个特征IV的计算公式为
 
 $$
 IV = {\sum\limits_{i = 1}^{n}{IV}_{i}}
