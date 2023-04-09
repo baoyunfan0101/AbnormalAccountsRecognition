@@ -29,7 +29,7 @@ $$
 {X'}_{i} = \frac{X_{i} - {\overset{-}{X}}_{i}}{S}
 $$
 
-其中${X'}_{i}$为数据标准化后的特征；$X_{i}$原数据的特征；${\overset{-}{X}}_{i}$为原数据特征的均值；S为原数据特征的标准差，其计算公式为$\sqrt{\frac{\sum\limits_{i = 1}^{n}\left( {x_{i} - \overset{-}{x}} \right)^{2}}{n - 1}}$。由于后续可能还会进行特征衍生，实际操作中数据标准化可以在特征工程结束后进行。
+其中$\{X'}_{i}$\为数据标准化后的特征；$X_{i}$原数据的特征；${\overset{-}{X}}_{i}$为原数据特征的均值；S为原数据特征的标准差，其计算公式为$\sqrt{\frac{\sum\limits_{i = 1}^{n}\left( {x_{i} - \overset{-}{x}} \right)^{2}}{n - 1}}$。由于后续可能还会进行特征衍生，实际操作中数据标准化可以在特征工程结束后进行。
 
 *测试集和训练集数据预处理的Python脚本分别在“preprocessing_train.py”和“preprocessing_test.py”中。*
 
