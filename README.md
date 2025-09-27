@@ -1,8 +1,12 @@
-# Abnormal Accounts Recognition
+# 异常风险账户识别
+
+<div align="right">
+	[中文(当前) | <a href="README.en.md">English</a>]
+</div>
 
 ## 关联项目
 
-https://github.com/baoyunfan0101/CertificationRiskPrediction
+[系统认证风险预测](https://github.com/baoyunfan0101/CertificationRiskPrediction)
 
 ## 文件说明
 
@@ -17,13 +21,13 @@ Python3.8 & MATLAB R2018a
 
 ## 任务描述
 
-从数据集给出的基础信息、操作信息和交易信息中，提取出有效特征，建立账户特征模型，即账户特征与账户风险“label”之间的关系模型，从而实现风险账户识别。
+从数据集给出的基础信息、操作信息和交易信息中，提取出有效特征，建立账户特征模型，即账户特征与账户风险`label`之间的关系模型，从而实现风险账户识别。
 
 ## 特征工程
 
 ### 数据预处理
 
-原始数据未发现重复记录，多数属性分布较为合理，不存在与常识不符的记录。部分属性缺失值过多（如服务3等级“service3_level”），在后续特征筛选过程中会删除这部分属性；部分属性有少量缺失，后续特征提取完成后会以0（即均值）进行填充。
+原始数据未发现重复记录，多数属性分布较为合理，不存在与常识不符的记录。部分属性缺失值过多（如服务3等级`service3_level`），在后续特征筛选过程中会删除这部分属性；部分属性有少量缺失，后续特征提取完成后会以0（即均值）进行填充。
 
 另外，原始数据中的离散型类别属性均以类别编码（字符串形式）存在。对于部分有偏序关系的离散型属性，将其类别编码转换为数字编码；对于部分并列关系的离散型属性，将其类别编码转换为独热编码（one-hot编码）。
 
@@ -43,19 +47,19 @@ ${\overset{-}{X}}\_{i}$
 $\sqrt{\frac{\sum\limits_{i = 1}^{n}\left( {x_{i} - \overset{-}{x}} \right)^{2}}{n - 1}}$
 。由于后续可能还会进行特征衍生，实际操作中数据标准化可以在特征工程结束后进行。
 
-*测试集和训练集数据预处理的Python脚本分别在“preprocessing_train.py”和“preprocessing_test.py”中。*
+*测试集和训练集数据预处理的Python脚本分别在`preprocessing_train.py`和`preprocessing_test.py`中。*
 
 ### 特征的衍生和筛选
 
-同一账户的操作和交易信息显然是账户特征模型的重点，而其操作和交易的时间信息（对应属性“tm_diff”）更是建立模型的重中之重。为此，我们参考RFM分析方法，对相关时间信息进行特征衍生。
+同一账户的操作和交易信息显然是账户特征模型的重点，而其操作和交易的时间信息（对应属性`tm_diff`）更是建立模型的重中之重。为此，我们参考RFM分析方法，对相关时间信息进行特征衍生。
 
-RFM分析方法中的“RFM”分别指的是Recency（距离最近一次交易）、Frequency（交易频率）和Monetary（交易金额）。参考此方法的基本思想，我们从账户操作信息中提取出四个特征，分别为最近操作时间“op_recent_tm”、操作频次“op_frequency”、操作平均间隔“op_interval”和操作最小间隔“op_min_interval”；从账户交易信息中提取出五个特征，分别为最近交易时间“trans_recent_tm”、交易频次“trans_frequency”、交易金额“trans_amount”、交易平均间隔“trans_interval”和交易最小间隔“trans_min_interval”。
+RFM分析方法中的“RFM”分别指的是Recency（距离最近一次交易）、Frequency（交易频率）和Monetary（交易金额）。参考此方法的基本思想，我们从账户操作信息中提取出四个特征，分别为最近操作时间`op_recent_tm`、操作频次`op_frequency`、操作平均间隔`op_interval`和操作最小间隔`op_min_interval`；从账户交易信息中提取出五个特征，分别为最近交易时间`trans_recent_tm`、交易频次`trans_frequency`、交易金额`trans_amount`、交易平均间隔`trans_interval`和交易最小间隔`trans_min_interval`。
 
 其中，同时在特征中保留平均间隔与最小间隔有特别的考虑。一方面，从专业角度来说，操作和交易的最小间隔是判断账户是否为人工处理的重要标准，对账户异常的识别有着特殊的价值；另一方面，平均间隔仅与账户的最早和最晚一次的操作或交易有关，而加入最小间隔能够更有效地利用数据，更完整地反映RFM分析方法中Frequency的概念。
 
-特征的筛选过程中，除删除在上述“数据质量分析及数据预处理”部分提及的缺失值过多的属性外，还依据下面特征分析的结果进行了进一步地筛选，下面将会详细阐述。
+特征的筛选过程中，除删除在上述“数据预处理”部分提及的缺失值过多的属性外，还依据下面特征分析的结果进行了进一步地筛选，下面将会详细阐述。
 
-*测试集和训练集的特征衍生也在“preprocessing_train.py”和“preprocessing_test.py”中，与数据预处理同步进行。测试集和训练集特征筛选的Python脚本分别在“screening_train.py”和“screening_test.py”中。*
+*测试集和训练集的特征衍生也在`preprocessing_train.py`和`preprocessing_test.py`中，与数据预处理同步进行。测试集和训练集特征筛选的Python脚本分别在`screening_train.py`和`screening_test.py`中。*
 
 ### 特征分析
 
@@ -103,9 +107,9 @@ $$
 
 ![image](https://github.com/baoyunfan0101/AbnormalAccountsRecognition/blob/main/static/iv.jpg)
 
-从图中不难发现，多数特征与账户风险“label”的关联性均在合理范围内。对于部分IV值极小的特征，可以将其舍去。
+从图中不难发现，多数特征与账户风险`label`的关联性均在合理范围内。对于部分IV值极小的特征，可以将其舍去。
 
-*特征重要性评估的Python脚本在“features.py”和“iv.m”中。*
+*特征重要性评估的Python脚本在`features.py`和`iv.m`中。*
 
 #### 特征相关性分析
 
@@ -115,7 +119,7 @@ $$
 
 从热力图中可知，大部分特征之间的相关性都在合理范围内。对于相关性过强的特征，可以采取合并特征的措施。
 
-*特征相关性分析的Python脚本也在“features.py”中。*
+*特征相关性分析的Python脚本也在`features.py`中。*
 
 ## 模型训练与优化
 
@@ -123,7 +127,7 @@ $$
 
 **逻辑回归**（Logistic Regression，LR）是一种广义的线性回归分析模型，常用于解决二分类问题。
 
-在账户风险模型中，设因变量账户风险“label”为y，其仅有1和0两个取值，可以看作二分类问题。若在自变量x=X的条件下因变量y=1的概率为p，记作
+在账户风险模型中，设因变量账户风险`label`为y，其仅有1和0两个取值，可以看作二分类问题。若在自变量x=X的条件下因变量y=1的概率为p，记作
 $p = P\left( y = 1 \middle| X \right)$
 ，则y=0的概率为
 $1 - p$
@@ -149,9 +153,9 @@ $$
 h(x) = \frac{1}{1 + e^{- X\beta^{T}}}
 $$
 
-其中，h(x)的取值范围为[0,1]，可以表示题目所需的账户风险“label”的预测值。又h(x)≥0.5时令y=1，h(x)<0.5时令y=0，即可实现二分类。
+其中，h(x)的取值范围为[0,1]，可以表示题目所需的账户风险`label`的预测值。又h(x)≥0.5时令y=1，h(x)<0.5时令y=0，即可实现二分类。
 
-*逻辑回归模型相关的Python脚本在“LR.py”中。*
+*逻辑回归模型相关的Python脚本在`LR.py`中。*
 
 ### 支持向量机
 
@@ -199,7 +203,7 @@ $$
 \max\limits_{}\frac{1}{\left\| w \right\|} \quad s.t.\left| {wx + b} \right| \geq 1
 $$
 
-*支持向量机模型相关的Python脚本在“SVM.py”中。*
+*支持向量机模型相关的Python脚本在`SVM.py`中。*
 
 ### XGBoost
 
@@ -221,7 +225,7 @@ $$
 
 其中l为损失函数；Ω为正则化函数，与模型的复杂程度相关。正则项的加入能够有效防止模型过度拟合。
 
-*XGBoost模型相关的Python脚本在“XGB.py”中。*
+*XGBoost模型相关的Python脚本在`XGB.py`中。*
 
 ### CatBoost
 
@@ -236,7 +240,7 @@ CatBoost模型与上述XGBoost模型相比，具有以下特点：
 
 此模型在独立模型中对此问题的效果最好。
 
-*CatBoost模型相关的Python脚本在“CatBoost.py”中。*
+*CatBoost模型相关的Python脚本在`CatBoost.py`中。*
 
 ### 一类支持向量机
 
@@ -246,7 +250,7 @@ CatBoost模型与上述XGBoost模型相比，具有以下特点：
 
 另一种猜想是，上面的模型仅适用于检测**离群点**（outlier detection），即存在于训练集中的异常点，而不适用于检测**奇异点**（novelty detection），即未在训练集中出现的新类型的样本。
 
-由此，将已经完成各项处理的数据按照账户风险“label”划分为正常行为集和异常行为集，引入下面模型。
+由此，将已经完成各项处理的数据按照账户风险`label`划分为正常行为集和异常行为集，引入下面模型。
 
 **一类支持向量机**（One Class Support Vector Machine，One Class SVM）是一类典型的单分类模型，常用于奇异点检测。
 
@@ -278,7 +282,7 @@ $$
 {\min\limits_{R,a}R^{2}} + C{\sum\limits_{i = 1}^{n}\zeta_{i}} \quad s.t.\left\| {x_{i} - a} \right\|^{2} \leq R^{2} + \zeta_{i}, \quad i = 1,..,n
 $$
 
-*一类支持向量机模型相关的Python脚本在“OneClassSVM.py”中。*
+*一类支持向量机模型相关的Python脚本在`OneClassSVM.py`中。*
 
 ## 参考文献
 
